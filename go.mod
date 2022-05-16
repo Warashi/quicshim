@@ -1,4 +1,4 @@
-module github.com/Warashi/quic-shim
+module github.com/Warashi/quicshim
 
 go 1.18
 

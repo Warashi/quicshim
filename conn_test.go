@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	quicshim "github.com/Warashi/quic-shim"
+	"github.com/Warashi/quicshim"
 	"github.com/lucas-clemente/quic-go"
 )
 
