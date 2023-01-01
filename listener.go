@@ -56,6 +56,8 @@ func (l *Listener) listenConn(ctx context.Context, conn quic.Connection) error {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
+		case <-conn.Context().Done():
+			return net.ErrClosed
 		default:
 		}
 
@@ -66,6 +68,8 @@ func (l *Listener) listenConn(ctx context.Context, conn quic.Connection) error {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
+		case <-conn.Context().Done():
+			return net.ErrClosed
 		case l.streamCh <- &StreamConn{conn, stream}:
 		}
 	}
