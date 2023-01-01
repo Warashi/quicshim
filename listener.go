@@ -63,7 +63,11 @@ func (l *Listener) listenConn(ctx context.Context, conn quic.Connection) error {
 		if err != nil {
 			return fmt.Errorf("conn.AcceptStream: %w", err)
 		}
-		l.streamCh <- &StreamConn{conn, stream}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case l.streamCh <- &StreamConn{conn, stream}:
+		}
 	}
 }
 
